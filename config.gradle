@@ -4,7 +4,7 @@ ext {
             applicationId:"com.joybar.androidrouter",
             compileSdkVersion: 26,
             targetSdkVersion : 26,
-            minSdkVersion    : 14,
+            minSdkVersion    : 18,
             buildToolsVersion: "26.0.2",
             versionCode:6,
             versionName:"1.2.1"

@@ -4,7 +4,8 @@ dependencies {
     compile 'com.squareup:javapoet:1.9.0'
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 apply from: 'gradle_push.gradle'

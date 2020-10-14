@@ -29,6 +29,10 @@ android {
             buildConfigField "boolean", "IS_DEBUG_TYPE", project.is_debug_type
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {

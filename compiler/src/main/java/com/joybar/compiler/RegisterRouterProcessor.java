@@ -18,36 +18,43 @@ import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
+import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
 
 /**
  * Created by joybar on 04/11/2017.
  */
 @AutoService(Processor.class)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class RegisterRouterProcessor extends AbstractProcessor {
 	private Filer mFiler;
+	private Messager mMessager;
 
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 		mFiler = processingEnv.getFiler();
+		mMessager = processingEnv.getMessager();
+		mMessager.printMessage(Diagnostic.Kind.NOTE,"------RegisterRouterProcessor process init------");
 	}
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+		mMessager.printMessage(Diagnostic.Kind.NOTE,"------RegisterRouterProcessor process start------");
+		mMessager.printMessage(Diagnostic.Kind.NOTE,"------RegisterRouterProcessor annotions "+annotations+"------");
 		for (TypeElement element : annotations) {
 			if (element.getQualifiedName().toString().equals(RegisterRouter.class.getCanonicalName())) {
 				handleRegisterRouter(roundEnv);
 			}
 		}
-
-
 		return false;
 	}
 
@@ -76,6 +83,7 @@ public class RegisterRouterProcessor extends AbstractProcessor {
 
 	private void handleRegisterRouter(RoundEnvironment roundEnv) {
 		System.out.println("--------start handleRegisterRouter--------");
+		mMessager.printMessage(Diagnostic.Kind.NOTE,"------RegisterRouterProcessor start handleRegisterRouter------");
 		List<RouterModule> routerModuleList = new ArrayList<>(0);
 		Set<? extends Element> registerRouterSet = roundEnv.getElementsAnnotatedWith(RegisterRouter.class);
 		for (Element e : registerRouterSet) {
@@ -85,6 +93,7 @@ public class RegisterRouterProcessor extends AbstractProcessor {
 			TypeElement typeElement = (TypeElement) e;
 
 			String module = typeElement.getAnnotation(RegisterRouter.class).module();
+			mMessager.printMessage(Diagnostic.Kind.NOTE,"------RegisterRouterProcessor start handleRegisterRouter moduel"+module+"------");
 			module = module == null ? "" : module;
 			String path = typeElement.getAnnotation(RegisterRouter.class).path();
 			path = path == null ? "" : path;

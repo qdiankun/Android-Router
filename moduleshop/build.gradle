@@ -80,10 +80,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     api project(':librouter')
+    annotationProcessor project(':compiler')
 }
 
-preBuild << {
-    String cmd = "sh inrouter/maker/route.sh " + project.getName()
-    def cmdResult = cmd.execute().text.trim()
-    println cmdResult
+preBuild  {
+    doLast {
+        String cmd = "sh inrouter/maker/route.sh " + project.getName()
+        def cmdResult = cmd.execute().text.trim()
+        println cmdResult
+    }
 }

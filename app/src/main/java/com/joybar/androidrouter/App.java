@@ -5,8 +5,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.joybar.annotation.router.annotation.RegisterModule;
+
 import com.joybar.compiler.helper.RouterInject;
 import com.joybar.librouter.application.ApplicationService;
+import com.joybar.librouter.guider.routerguider.RouterGuider;
 import com.joybar.librouter.routercore.Router;
 import com.joybar.librouter.routercore.Rule;
 import com.joybar.librouter.routerservice.RouterServiceManager;
@@ -45,10 +47,10 @@ public class App extends Application implements ApplicationService {
 
 
 	private void registerRouter(){
-		//RouterGuider.inject(this);
+		RouterGuider.inject(this);
 		initRouterByAnnotation();// 注册Activity 路由
 		// OR
-		// initRouterByDynamic(); // 注册Activity 路由
+		//initRouterByDynamic(); // 注册Activity 路由
 		loadModuleApplicationService(); //加载每个module的Application，使其完成初始化工作
 		RouterServiceManager.getInstance().init(this);// 注册组件之间服务路由
 
